@@ -73,6 +73,8 @@ function play(){
 }
 
 function giveUp(){
+    guesses = range;
+    alert(range);
     document.getElementById("msg").textContent = "You gave up! The number was " + correct + ".";
     document.getElementById("playBtn").disabled = false;
     document.getElementById("guessBtn").disabled = true;

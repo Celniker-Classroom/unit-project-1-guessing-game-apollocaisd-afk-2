@@ -50,6 +50,19 @@ document.getElementById("playBtn").addEventListener("click", play);
 document.getElementById("guessBtn").addEventListener("click", processGuess);
 document.getElementById("giveUpBtn").addEventListener("click", giveUp);
 
+// Add event listeners to radio buttons for custom input visibility
+let levelRadios = document.getElementsByName("level");
+for (let radio of levelRadios) {
+    radio.addEventListener("change", function() {
+        let customInput = document.getElementById("custom");
+        if (this.id === "c") {
+            customInput.style.display = "inline";
+        } else {
+            customInput.style.display = "none";
+        }
+    });
+}
+
 function play(){
     document.getElementById("guess").value = "";
     guesses = 0;
@@ -57,7 +70,11 @@ function play(){
     range = 3;
     for(let i = 0; i < difficulties.length; i++){
         if(difficulties[i].checked){
-            range = parseInt(difficulties[i].value);
+            if (difficulties[i].id === "c") {
+                range = parseInt(document.getElementById("custom").value) || 100; 
+            } else {
+                range = parseInt(difficulties[i].value);
+            }
         }
     }
     correct = Math.floor(Math.random() * range) + 1;
@@ -99,6 +116,9 @@ function processGuess(){
         document.getElementById("avgScore").textContent = "Average Score: " + averageGuesses.toFixed(2);
         document.getElementById("guess").value = "";
         updateLeaderboard();
+        if (document.getElementById("f").checked) {
+            document.getElementById("finalChallengeSection").style.display = "block";
+        }
         let elapsedSeconds = Math.round((Date.now() - roundStartTime) / 1000);
         endRound(elapsedSeconds);
     }

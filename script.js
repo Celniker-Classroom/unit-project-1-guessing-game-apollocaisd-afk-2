@@ -11,6 +11,7 @@ let fastestTime = Infinity;
 let wins = 0;
 let totalGuesses = 0;
 let averageGuesses = 0;
+let range = 3;
 
 function getDate(){
     let date = new Date();
@@ -53,7 +54,7 @@ function play(){
     document.getElementById("guess").value = "";
     guesses = 0;
     let difficulties = document.getElementsByName("level");
-    let range = 3;
+    range = 3;
     for(let i = 0; i < difficulties.length; i++){
         if(difficulties[i].checked){
             range = parseInt(difficulties[i].value);
@@ -72,17 +73,13 @@ function play(){
 }
 
 function giveUp(){
-    guesses = range
-    if (roundStartTime === 0 || document.getElementById("guessBtn").disabled){
-        return;
-    }
-    let elapsedSeconds = Math.round((Date.now() - roundStartTime) / 1000);
-    endRound(elapsedSeconds);
     document.getElementById("msg").textContent = "You gave up! The number was " + correct + ".";
     document.getElementById("playBtn").disabled = false;
     document.getElementById("guessBtn").disabled = true;
     document.getElementById("giveUpBtn").disabled = true;
     document.getElementById("guess").value = "";
+    let elapsedSeconds = Math.round((Date.now() - roundStartTime) / 1000);
+    endRound(elapsedSeconds);
 }
 
 function processGuess(){

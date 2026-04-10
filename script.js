@@ -21,7 +21,25 @@ function getDate(){
     let hours = String(date.getHours()).padStart(2, "0");
     let minutes = String(date.getMinutes()).padStart(2, "0");
     let seconds = String(date.getSeconds()).padStart(2, "0");
-    document.getElementById("date").textContent = month + " " + day + ", " + year + " " + hours + ":" + minutes + ":" + seconds;
+    let suffix = getDaySuffix(day);
+    document.getElementById("date").textContent = month + " " + day + suffix + ", " + year + " " + hours + ":" + minutes + ":" + seconds;
+}
+
+function getSuffix(day){
+    let tens = day % 100;
+    if (tens >= 11 && tens <= 13){
+        return "th";
+    }
+    switch (day % 10){
+        case 1:
+            return "st";
+        case 2:
+            return "nd";
+        case 3:
+            return "rd";
+        default:
+            return "th";
+    }
 }
 
 getDate();
@@ -54,6 +72,7 @@ function play(){
 }
 
 function giveUp(){
+    guesses = range
     if (roundStartTime === 0 || document.getElementById("guessBtn").disabled){
         return;
     }
